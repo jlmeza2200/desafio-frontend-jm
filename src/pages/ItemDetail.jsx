@@ -1,31 +1,34 @@
-import React, { useState, useEffect } from "react";
 import { shades } from "../../theme";
 import { useParams } from "react-router-dom";
 import { Box, Typography, IconButton, Button } from "@mui/material";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import useGetProducts from "../hooks/getProducts";
 
 const ItemDetail = () => {
-  const [products, setProducts] = useState([]);
 
-  const PHOTOS_ENDPOINT = "https://jsonplaceholder.typicode.com/photos";
+  // CODIGO MEJORADO CON CUSTOM HOOKS: getProducts
 
-  useEffect(() => {
-    fetch(PHOTOS_ENDPOINT)
-      .then((res) => res.json())
-      .then((data) => {
-        // Del array de 100 objetos, filtramos los primeros 6
-        const sixObjectsProductDetail = data.slice(0, 6);
-        setProducts(sixObjectsProductDetail);
-      });
-  }, []);
+  // const [products, setProducts] = useState([]);
+  // const PHOTOS_ENDPOINT = "https://jsonplaceholder.typicode.com/photos";
+  // useEffect(() => {
+  //   fetch(PHOTOS_ENDPOINT)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Del array de 5000 objetos, filtramos los primeros 6
+  //       const sixObjectsProductDetail = data.slice(0, 6);
+  //       setProducts(sixObjectsProductDetail);
+  //     });
+  // }, []);
+
+  const products = useGetProducts() 
 
   const { productId } = useParams();
   const productSelected = products.find((prod) => prod.id == productId);
 
-  return <div style={{ padding: "200px" }}>
-     <Box width="80%" m="80px auto">
+  return (
+     <Box width="80%" m="80px auto" >
         <Box display="flex" flexWrap="wrap" columnGap="40px">
           {/* IMAGES */}
           <Box flex="1 1 40%" mb="40px">
@@ -92,7 +95,7 @@ const ItemDetail = () => {
           </Box>
         </Box>
       </Box>
-  </div>;
+  )
 };
 
 export default ItemDetail;

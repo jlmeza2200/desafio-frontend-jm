@@ -1,20 +1,24 @@
-import React, {useState, useEffect} from "react";
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import useGetProducts from "../hooks/getProducts";
 
 const ItemList = () => {
-  const [products, setProducts] = useState([]);
-  const PHOTOS_ENDPOINT = "https://jsonplaceholder.typicode.com/photos";
 
-  useEffect(() => {
-    fetch(PHOTOS_ENDPOINT)
-      .then((res) => res.json())
-      .then((data) => {
-        // Del array de 100 objetos, filtramos los primeros 6
-        const sixObjectsProductDetail = data.slice(0, 6);
-        setProducts(sixObjectsProductDetail);
-      });
-  }, []);
+  // CODIGO MEJORADO CON CUSTOM HOOKS: getProducts
+
+  // const [products, setProducts] = useState([]);
+  // const PHOTOS_ENDPOINT = "https://jsonplaceholder.typicode.com/photos";
+  // useEffect(() => {
+  //   fetch(PHOTOS_ENDPOINT)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // Del array de 5000 objetos, filtramos los primeros 6
+  //       const sixObjectsProductDetail = data.slice(0, 6);
+  //       setProducts(sixObjectsProductDetail);
+  //     });
+  // }, []);
+
+  const products = useGetProducts(); 
 
   return (
     <>
